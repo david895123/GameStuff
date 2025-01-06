@@ -11,7 +11,6 @@ public class Projectile : MonoBehaviour
 
     public void Fire(UnityEngine.Quaternion rotation)
     {
-        Debug.Log("fire");
 
 
         GameObject projectile = Instantiate(projectilePrefab, firePoint.position, rotation);
@@ -20,7 +19,6 @@ public class Projectile : MonoBehaviour
 
     public void Fire()
     {
-        Debug.Log("fire");
 
 
         GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);

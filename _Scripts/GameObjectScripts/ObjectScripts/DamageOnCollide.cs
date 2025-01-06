@@ -19,11 +19,10 @@ public class DamageOnCollide : Collidable
     }
     */
 
-    protected override void OnCollide(Collider2D collider)
+    protected override void OnCollide(Collider2D collider, string tag)
     {
-        Debug.Log(collider.tag);
 
-        if (collider.gameObject.CompareTag("Player"))
+        if (tag == "Player")
         {
 
             Damage dmg = new Damage
@@ -38,7 +37,7 @@ public class DamageOnCollide : Collidable
             player.ReceiveDamage(dmg);
         }
 
-        if (collider.gameObject.CompareTag("Enemy"))
+        if (tag == "Enemy")
         {
             Damage dmg = new Damage
             {

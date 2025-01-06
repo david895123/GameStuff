@@ -9,6 +9,13 @@ public class Enemy : Charachter
     [SerializeField] float speed;
     [SerializeField] float damageAmount;
     [SerializeField] float pushForce;
+
+
+
+    private void Start()
+    {
+        player = GameObject.Find("Player");
+    }
     private void Update()
     {
         if (transform.position.x - player.transform.position.x <= followDistance)

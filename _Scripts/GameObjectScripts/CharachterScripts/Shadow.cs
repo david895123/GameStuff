@@ -13,41 +13,55 @@ public class Shadow : MonoBehaviour
     [SerializeField] float multiplier4;
     [SerializeField] float multiplier5;
     private float speedMultiplier = 1f;
+    [SerializeField] float freeze;
+    private float damageAmount = 100;
+    private float pushForce = 0;
+    private float startTime;
     void Start()
     {
-
+        startTime = Time.time;
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.right * speed * Time.deltaTime * speedMultiplier);
-        transform.position = new Vector3(transform.position.x, player.transform.position.y, 0);
+        if ((Time.time - startTime > freeze))
+        {
+
+
+            transform.Translate(Vector3.right * speed * Time.deltaTime * speedMultiplier);
+            transform.position = new Vector3(transform.position.x, player.transform.position.y, 0);
+        }
+    }
+
+    public void LightChange(float light)
+    {
+        float multiplier = 1 - (light / 1.5f);
+        speedMultiplier = multiplier;
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("collision");
 
-        switch (collision.tag)
+
+        if (collision.gameObject.CompareTag("Player"))
         {
-            case "LightLevel1":
-                speedMultiplier = multiplier1;
-                break;
-            case "LightLevel2":
-                speedMultiplier = multiplier2;
-                break;
-            case "LightLevel3":
-                speedMultiplier = multiplier3;
-                break;
-            case "LightLevel4":
-                speedMultiplier = multiplier4;
-                break;
-            case "LightLevel5":
-                speedMultiplier = multiplier5;
-                break;
+            Damage dmg = new Damage
+            {
+                damageAmount = damageAmount,
+                origin = transform.position,
+                pushForce = pushForce
+
+
+            };
+            Player player = collision.GetComponentInParent<Player>();
+            player.ReceiveDamage(dmg);
 
         }
+
+
+
 
     }
 

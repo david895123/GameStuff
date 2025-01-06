@@ -16,34 +16,18 @@ public class Collidable : MonoBehaviour
         boxCollider = GetComponent<PolygonCollider2D>();
     }
 
-    // Checs for collision
-    /*protected virtual void Update()
-    {
-        boxCollider.OverlapCollider(contactFilter, hits);
 
-        for (int i = 0; i < hits.Length; i++)
-        {
-            if (hits[i] == null)
-            {
-                continue;
-            }
-
-            OnCollide(hits[i]);
-
-            hits[i] = null;
-
-        }
-
-    }
-    */
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Blocking") || collision.gameObject.CompareTag("Enemy"))
+        {
+            OnCollide(collision, collision.gameObject.tag);
+        }
 
-        OnCollide(collision);
     }
 
-    protected virtual void OnCollide(Collider2D collider)
+    protected virtual void OnCollide(Collider2D collider, string tag)
     {
         Debug.Log("OnCollide was not implemeted in " + this.name);
     }

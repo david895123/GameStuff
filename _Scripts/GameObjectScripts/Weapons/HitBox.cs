@@ -8,7 +8,7 @@ public class HitBox : Collidable
     [SerializeField] private float pushForce;
 
 
-    protected override void OnCollide(Collider2D collider)
+    protected override void OnCollide(Collider2D collider, string tag)
     {
 
         if (collider.tag == "Actor")

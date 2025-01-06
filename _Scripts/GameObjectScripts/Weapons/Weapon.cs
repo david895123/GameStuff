@@ -36,7 +36,7 @@ public class Weapon : Collidable
     }
     */
 
-    protected override void OnCollide(Collider2D collider)
+    protected override void OnCollide(Collider2D collider, string tag)
     {
         Damage dmg = new Damage
         {

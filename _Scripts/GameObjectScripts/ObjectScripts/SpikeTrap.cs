@@ -8,6 +8,7 @@ public class SpikeTrap : DamageOnCollide
     [SerializeField] private Sprite spikesEngaged;
     [SerializeField] private float timeInterval;
     [SerializeField] private float offset;
+    private Collider2D spikeCollider;
     private Collider2D playerCollider;
     private float lastTime;
     private bool engaged;
@@ -15,6 +16,7 @@ public class SpikeTrap : DamageOnCollide
 
     protected override void Start()
     {
+        spikeCollider = GetComponent<Collider2D>();
         GetComponent<SpriteRenderer>().sprite = spikesHidden;
         engaged = false;
         base.Start();
@@ -31,15 +33,17 @@ public class SpikeTrap : DamageOnCollide
             {
                 GetComponent<SpriteRenderer>().sprite = spikesHidden;
                 engaged = false;
+                spikeCollider.enabled = false;
 
             }
             else
             {
                 GetComponent<SpriteRenderer>().sprite = spikesEngaged;
                 engaged = true;
+                spikeCollider.enabled = true;
                 if (isColliding)
                 {
-                    OnCollide(playerCollider);
+                    OnCollide(playerCollider, playerCollider.gameObject.tag);
                 }
             }
         }
@@ -47,13 +51,13 @@ public class SpikeTrap : DamageOnCollide
 
 
 
-    protected override void OnCollide(Collider2D collider)
+    protected override void OnCollide(Collider2D collider, string tag)
     {
         isColliding = true;
         playerCollider = collider;
         if (engaged)
         {
-            base.OnCollide(collider);
+            base.OnCollide(collider, tag);
 
 
         }

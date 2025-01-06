@@ -45,9 +45,14 @@ public class Player : Mover
 
     private void OnAttack1()
     {
-        Debug.Log("Attack2");
-        projectile.Fire();
+        if (magic >= 5)
+        {
+            Debug.Log("Attack2");
+            projectile.Fire();
+            magic -= 5;
+        }
     }
+
 
     private void OnAttack2()
     {
@@ -56,17 +61,14 @@ public class Player : Mover
 
     private void OnSprint()
     {
-        Debug.Log("Sprint");
     }
 
     private void OnInteract()
     {
-        Debug.Log("Interact");
     }
 
     private void OnDodge()
     {
-        Debug.Log("Dodge");
     }
 
     private void OnMove(InputValue input)
@@ -94,11 +96,18 @@ public class Player : Mover
 
     //-----------------------------------------------------------------------------------------------------
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnEnable()
     {
-        if (collision.gameObject.CompareTag("Shadow"))
-        {
-        }
+        Ticker.OnTickAction02 += Tick;
+    }
+
+    private void OnDisable()
+    {
+        Ticker.OnTickAction02 -= Tick;
+    }
+    private void Tick()
+    {
+        Debug.Log("cica");
     }
 
     private void CheckForChanges()
@@ -126,6 +135,27 @@ public class Player : Mover
             setStatusBars.SetEaseMagicSlider(currentMagic);
 
         }
+    }
+
+    public void ReceiveHealth(float amount)
+    {
+        if (hitpoint + amount > maxHitpoints)
+        {
+            hitpoint = maxHitpoints;
+        }
+        else
+            hitpoint += amount;
+
+    }
+    public void ReceiveMagic(float amount)
+    {
+        if (magic + amount > maxMagic)
+        {
+            magic = maxMagic;
+        }
+        else
+            magic += amount;
+
     }
 
 

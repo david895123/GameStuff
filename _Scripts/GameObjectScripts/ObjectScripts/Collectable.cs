@@ -6,17 +6,17 @@ public class Collectable : Collidable
 {
     protected bool collected;
 
-    protected override void OnCollide(Collider2D collider)
+    protected override void OnCollide(Collider2D collider, string tag)
     {
 
         //checs if it collides with player
-        if (collider.name == "Player")
+        if (tag == "Player")
         {
-            OnCollect();
+            OnCollect(collider);
         }
     }
 
-    protected virtual void OnCollect()
+    protected virtual void OnCollect(Collider2D player)
     {
         collected = true;
     }

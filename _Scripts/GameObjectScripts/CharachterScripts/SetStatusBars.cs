@@ -94,7 +94,6 @@ public class SetStatusBars : MonoBehaviour
     /// <param name="magic"></param>
     public void SetEaseMagicSlider(float magic)
     {
-        Debug.Log(magic);
 
         easeMagicSlider.value = Mathf.Lerp(easeMagicSlider.value, magic, fLerpSpeed);
 

@@ -13,20 +13,23 @@ public class Arrow : DamageOnCollide
         startTime = Time.time;
 
     }
-    protected override void OnCollide(Collider2D collider)
+    protected override void OnCollide(Collider2D collider, string tag)
     {
-        if (collider.tag != "LightLevel1" && collider.tag != "LightLevel2" && collider.tag != "LightLevel3"
-            && collider.tag != "LightLevel4" && collider.tag != "LightLevel5")
+
+
+
+
+        if (Time.time - startTime >= imune)
         {
-
-
-            if (Time.time - startTime >= imune)
+            if (tag == "Player" || tag == "Enemy" || tag == "Blocking")
             {
-                base.OnCollide(collider);
+                base.OnCollide(collider, tag);
 
                 GameObject.Destroy(gameObject);
+
             }
         }
+
 
     }
 }
